@@ -1,0 +1,11 @@
+.env
+.venv
+.__pycache__
+*.pyc
+.vscode/
+
+# fichiers test
+test_meteo_lucas.py
+test_openai_key.py
+agent_meteo.py
+
