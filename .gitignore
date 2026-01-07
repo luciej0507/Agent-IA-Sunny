@@ -9,3 +9,4 @@ test_meteo_lucas.py
 test_openai_key.py
 agent_meteo.py
 
+chroma_db/

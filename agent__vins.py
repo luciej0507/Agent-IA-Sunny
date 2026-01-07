@@ -1,10 +1,3 @@
-# Installations des packages nécessaires
-# pip install langgraph langchain-groq langchain-community ddgs
-
-
-#Imports
-
-import os
 from dotenv import load_dotenv
 from dataclasses import dataclass
 from langchain.agents import create_agent
@@ -15,7 +8,6 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langchain.agents.structured_output import ToolStrategy
 from langchain_core.prompts import ChatPromptTemplate
 from ddgs import DDGS
-import json
 
 import warnings
 
@@ -177,9 +169,10 @@ def search_wine_prices(wine_name: str, region: str = "") -> str:
 
 # Configuration du modèle
 model = ChatGroq(
-    model="llama-3.3-70b-versatile",
-    temperature=0,
-    max_tokens=2048
+    #model="llama-3.3-70b-versatile",
+    model="llama-3.1-8b-instant",
+    temperature=0.1,
+    max_tokens=32768
 )
 
 

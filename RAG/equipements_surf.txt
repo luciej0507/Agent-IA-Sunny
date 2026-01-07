@@ -4,16 +4,19 @@ BASE DE CONNAISSANCES – ÉQUIPEMENTS SURF & BODYBOARD
 Les combinaisons sont choisies en fonction de la température de l’eau, de la saison et du confort.
 
 Types :
-- Combinaison intégrale (Full suit)
-- Combinaison shorty
-- Combinaison sans manches (Long John)
-- Top néoprène
+- Shorty : manches courtes + jambes courtes.
+- Long John : jambes longues + pas de manches.
+- Spring suit : manches longues + jambes courtes.
+- Full suit / intégrale : manches longues + jambes longues.
+- Top néoprène : haut seul (manches courtes ou longues).
+- Dry suit (rare en surf) : combinaison étanche pour eaux très froides.
 
 Épaisseurs :
 - 2/2 mm : eau chaude
 - 3/2 mm : eau tempérée
 - 4/3 mm : eau fraîche
 - 5/4 mm et plus : eau froide
+- 6/5/4 mm : eau très froide
 
 Systèmes de fermeture :
 - Zip dorsal (Back zip)
@@ -22,16 +25,26 @@ Systèmes de fermeture :
 
 --------------------------------------------------
 
-2. PLANCHES DE SURF
-Les planches de surf varient selon le niveau et le type de vagues.
+2. PLANCHES
+Les planches varient selon le niveau et le type de vagues.
 
-Types :
-- Softboard
-- Longboard
-- Mini-malibu
-- Shortboard
-- Fish
-- Gun
+Surf :
+- Shortboard : rapide, maniable, pour vagues puissantes.
+- Fish : large, stable, idéal vagues petites/moyennes.
+- Funboard / mini-malibu : parfait pour progresser.
+- Longboard : grande stabilité, glisse douce, nose riding.
+- Gun : pour grosses vagues (rare).
+
+Bodyboard :
+- Utilisation allongée.
+- Plus court, mousse dense, leash au poignet.
+- Palmes courtes recommandées.
+
+Stand-Up Paddle (SUP):
+- Rigide : performance, stabilité.
+- Gonflable : transport facile.
+- SUP surf : plus court, maniable.
+- SUP balade : long et stable.
 
 Matériaux :
 - Mousse (EPS)
@@ -40,27 +53,15 @@ Matériaux :
 
 --------------------------------------------------
 
-3. BODYBOARDS
-Le bodyboard se pratique allongé ou à genoux.
-
-Caractéristiques :
-- Taille adaptée à la morphologie
-- Noyau en mousse (PE, PP)
-- Slick rigide sous la planche
-
-Types :
-- Bodyboard débutant
-- Bodyboard intermédiaire
-- Bodyboard professionnel
-
---------------------------------------------------
-
-4. ACCESSOIRES ESSENTIELS
+3. ACCESSOIRES ESSENTIELS
 Accessoires communs :
-- Leash
-- Wax
-- Pad (grip)
-- Housse de planche
+- Leash : attache cheville à la planche
+- Wax : accroche sur la planche
+- Pad : grip arrière pour shortboard
+- Housse de planche : transport et protection
+- Bottes néoprène : 3 mm, 5 mm ou 7 mm selon température
+- Ear plugs
+- Poncho
 
 Protection contre le froid :
 - Chaussons néoprène
@@ -69,35 +70,34 @@ Protection contre le froid :
 
 --------------------------------------------------
 
-5. ÉQUIPEMENTS SPÉCIFIQUES BODYBOARD
-Accessoires :
-- Palmes
-- Chaussettes de palmes
-- Leash poignet ou biceps
+4. ÉQUIPEMENTS SELON TEMPÉRATURE DE L'EAU
 
-Styles de pratique :
-- Prone
-- Drop knee
-- Stand-up bodyboard
+Eau chaude (≥ 22°C) :
+- Shorty 2/2 mm
+- Top néoprène 1 mm
+- Lycra anti-UV
+- Pas de bottes/gants
 
---------------------------------------------------
-
-6. EXEMPLES DE COMBINAISONS D’ÉQUIPEMENTS
-
-Débutant surf, eau tempérée :
-- Softboard
+Eau tempérée (18–21°C) :
 - Combinaison 3/2 mm
-- Leash
-- Wax
+- Pas d’accessoires nécessaires
+- Bottes fines possibles si vent froid
 
-Surfeur confirmé, eau froide :
-- Shortboard
-- Combinaison 5/4 mm
-- Chaussons, gants, cagoule
-- Pad
-
-Bodyboard eau fraîche :
-- Bodyboard intermédiaire
-- Palmes
+Eau fraîche (12–17°C) :
 - Combinaison 4/3 mm
-- Leash biceps
+- Bottes 3–5 mm
+- Gants fins si vent fort
+- Cagoule optionnelle
+
+Eau froide (7–11°C) :
+- Combinaison 5/4 mm ou 6/5/4 mm
+- Bottes 5 mm
+- Gants 3–5 mm
+- Cagoule obligatoire
+- Ear plugs recommandés
+
+Eau très froide (< 7°C) :
+- Combinaison 6/5/4 mm avec cagoule intégrée
+- Bottes 7 mm
+- Gants 5 mm
+- Sessions courtes recommandées
