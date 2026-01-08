@@ -21,6 +21,8 @@ load_dotenv()
 groq_api_key = os.getenv("GROQ_API_KEY")
 llm_client = Groq(api_key=groq_api_key)
 
+
+
 ### Chunking du texte
 def chunk_text(text, chunk_size=300, overlap=50):
     words = text.split()
@@ -36,7 +38,7 @@ def chunk_text(text, chunk_size=300, overlap=50):
     return chunks
 
 
-# Remplir la base ChromaDB avec les documents la première fois
+## Remplir la base ChromaDB avec les documents la première fois
 def initialize_rag(text):
     """Initialise la base RAG avec le texte fourni"""
     # Vérifie si déjà initialisé
@@ -110,6 +112,9 @@ Réponse :"""
         temperature=0.3,
         max_tokens=500
     )
+    
+    if "pas d'information" in response.choices[0].message.content.lower():
+        return "ERREUR_RAG : Je n'ai pas trouvé de détails sur cet équipement dans ma base."
     
     return response.choices[0].message.content
 
