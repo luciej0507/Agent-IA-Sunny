@@ -8,6 +8,8 @@
 test_meteo_lucas.py
 test_openai_key.py
 agent_meteo.py
+flags_snsm_scraping.py
+drapeaux_plage.json
 
 memo.txt
 
