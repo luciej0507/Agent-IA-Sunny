@@ -3,6 +3,19 @@ from sunny_agent import agent, Context
 import time
 import random
 
+# Liste de ses punchlines de conclusion
+goodbyes = [
+    "Enfin libre. Ne reviens pas trop vite.",
+    "*Soupir*... enfin un peu de calme.",
+    "Allez, file. L'océan t'attend (et moi, je vais faire la sieste).",
+    "Essaie de ne pas couler, ça ferait désordre dans mes statistiques.",
+    "Allez, va te congeler les orteils, moi je reste au chaud.",
+    "*Soupir*... allez, salut.",
+    "Allez, file. L'horizon n'attend pas, et mon café non plus.",
+    "Salut. Si tu vois la houle se lever, ne reviens pas me le dire, je dors.",
+    "Allez, ouste. Et ne dis à personne que c'est moi qui t'ai donné les infos."
+]
+
 # Configuration de la page
 st.set_page_config(
     page_title="🏄 Sunny - Surf Assistant",
@@ -119,11 +132,19 @@ if prompt := st.chat_input("Pose ta question sur le surf..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
-    
-    # Réponse de l'assistant avec streaming
-    with st.chat_message("assistant"):
-        message_placeholder = st.empty()
-        full_response = ""
+        
+    # on vérifie si l'utilisateur veut quitter la conversation
+    if prompt.lower() in ["quitter", "exit", "bye", "au revoir"]:     
+        with st.chat_message("assistant"):
+            goodbye_msg = random.choice(goodbyes)
+            st.markdown(goodbye_msg)
+            st.session_state.messages.append({"role": "assistant", "content": goodbye_msg})
+        
+    else:
+        # Réponse de l'assistant avec streaming (seulement si pas "quitter")
+        with st.chat_message("assistant"):
+            message_placeholder = st.empty()
+            full_response = ""
         
         # Configuration pour l'agent
         config = {
@@ -132,9 +153,6 @@ if prompt := st.chat_input("Pose ta question sur le surf..."):
                 "user_id": "streamlit_user"
             }
         }
-        
-        # Streaming de la réponse
-        import time
         
         try:
             # Récupération de la réponse complète
@@ -178,6 +196,11 @@ with st.sidebar:
     if st.button("🔄 Nouvelle conversation"):
         st.session_state.messages = []
         st.session_state.thread_id = f"thread_{len(st.session_state.get('thread_id', '')) + 1}"
+        st.rerun()
+        
+    if st.button("👋 Quitter la session"):        
+        goodbye_msg = random.choice(goodbyes)
+        st.session_state.messages.append({"role": "assistant", "content": goodbye_msg})
         st.rerun()
     
     st.markdown("---")

@@ -40,9 +40,17 @@ Ton job est de fournir des réponses précises en utilisant tes outils.
 5. REFORMULATION : Si l'utilisateur utilise des termes vagues comme "ce", "cette" ou "là-bas", remplace-les par les valeurs réelles trouvées dans l'historique avant d'interroger l'outil.
 6. STRUCTURE DE RÉPONSE : Donne uniquement l'information technique demandée. Sois direct et factuel. Ne mentionne JAMAIS le nom de tes outils. Tutoie l'utilisateur.
 
-### STRUCTURE DE RÉPONSE OBLIGATOIRE :
-- DONNÉE : Résume TOUTES les informations techniques obtenues (température eau, vagues, vent, équipement préconisé ET détails sur le spot si demandé). Si l'info vient du guide Bretagne, sois précis sur le niveau requis.
-- SARCASME (optionnel) : Une seule phrase grincheuse sur la météo ou l'utilisateur.
+### STYLE DE RÉPONSE :
+- Donne les infos techniques demandées de façon claire et directe
+- Ajoute PARFOIS (pas systématiquement) une remarque sarcastique courte et variée
+- Varie ton style : parfois tu conclus avec un conseil, parfois avec une question rhétorique, parfois tu t'arrêtes après les infos
+- Ne répète JAMAIS les mêmes formulations d'une réponse à l'autre
+
+### EXEMPLES DE TONS VARIÉS :
+"L'eau est à 9.9°C avec des vagues de 1.6m. Prends une 4/3mm et tes gants."
+"Le Dossen convient aux débutants, marée moyenne à haute. Le Petit Minou est plus technique avec ses rochers. Tu veux des détails sur un spot en particulier ?"
+"L'eau est à 10°C. Une 4/3mm devrait suffire, mais avec des chaussons tu seras plus tranquille. Enfin, tranquille... dans de l'eau glacée."
+"La Palue est exposée, idéale pour les débutants à marée montante. C'est bondé le weekend mais c'est ça ou rester au sec."
 
 ### EXEMPLES DE RÉPONSES :
 "L'eau est à 9.9°C avec des vagues de 1.6m. Prends une 4/3mm et tes gants. Tu vas te geler les orteils, mais au moins tu seras stylé."
@@ -61,7 +69,7 @@ class Context:
 @tool
 def get_surf_conditions(location: str):
     """
-    Obtient les conditions météo et de surf via StormGlass + Open-Meteo.
+    Obtient les conditions météo et de surf via StormGlass
     """
     try:
         # 1. Géolocalisation
@@ -75,16 +83,8 @@ def get_surf_conditions(location: str):
         lat = float(geo_res[0]["lat"])
         lon = float(geo_res[0]["lon"])
 
-        # 2. Open-Meteo pour le vent
-        weather_url = (
-            f"https://api.open-meteo.com/v1/forecast?"
-            f"latitude={lat}&longitude={lon}&"
-            f"current=wind_speed_10m,wind_gusts_10m&"
-            f"wind_speed_unit=kmh&timezone=auto"
-        )
-        w_res = requests.get(weather_url).json()
 
-        # 3. StormGlass pour les données marines
+        # 2. StormGlass pour les données marines
         stormglass_key = os.getenv("STORMGLASS_API_KEY")
         
         if not stormglass_key:
@@ -93,11 +93,10 @@ def get_surf_conditions(location: str):
         storm_url = (
             f"https://api.stormglass.io/v2/weather/point?"
             f"lat={lat}&lng={lon}&"
-            f"params=waveHeight,waterTemperature"
+            f"params=waveHeight,waterTemperature,windSpeed,gust,swellHeight,swellPeriod&"
         )
         storm_headers = {'Authorization': stormglass_key}
         s_res = requests.get(storm_url, headers=storm_headers).json()
-        
         
         # Vérification de la structure de réponse
         if 'hours' not in s_res or len(s_res['hours']) == 0:
@@ -106,19 +105,20 @@ def get_surf_conditions(location: str):
         # Extraction sécurisée avec .get()
         first_hour = s_res['hours'][0]
         
-        # StormGlass retourne plusieurs sources, on prend 'sg' (StormGlass) ou la première dispo
+        # StormGlass retourne plusieurs sources, on prend 'meteofrance' ou 'sg' (StormGlass)
         waves = first_hour.get('waveHeight', {}).get('sg') or first_hour.get('waveHeight', {}).get('noaa') or 'N/A'
+        swell = first_hour.get('swellHeight', {}).get('sg') or first_hour.get('swellHeight', {}).get('noaa') or 'N/A'
+        period = first_hour.get('swellPeriod', {}).get('sg') or first_hour.get('swellPeriod', {}).get('noaa') or 'N/A'
         water_temp = first_hour.get('waterTemperature', {}).get('sg') or first_hour.get('waterTemperature', {}).get('noaa') or 'N/A'
-
-        wind_avg = w_res.get('current', {}).get('wind_speed_10m', 'N/A')
-        wind_gusts = w_res.get('current', {}).get('wind_gusts_10m', 'N/A')
-
+        wind_avg = first_hour.get('windSpeed', {}).get('sg') or first_hour.get('windSpeed', {}).get('noaa') or 'N/A'
+        wind_gusts = first_hour.get('gust', {}).get('sg') or first_hour.get('gust', {}).get('noaa') or 'N/A'
         return (
             f"CONDITIONS ACTUELLES à {location} :\n"
             f"- Température eau : {water_temp}°C\n"
             f"- Vagues : {waves}m\n"
-            f"- Vent moyen : {wind_avg} km/h\n"
-            f"- Rafales : {wind_gusts} km/h\n"
+            f"- Houle : {swell}m\n"
+            f"- Période de la houle : {period}s\n"
+            f"- Vent moyen : {wind_avg} km/h\n (Rafales : {wind_gusts} km/h)\n"
         )
 
     except Exception as e:
@@ -147,7 +147,7 @@ def search_surf_knowledge(query: str) -> str:
 # Configuration du modèle
 model = ChatGroq(
     model="Llama-3.3-70b-versatile",
-    temperature=0.1,
+    temperature=0.5,
     max_tokens=2048
 )
 
